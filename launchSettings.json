@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "bettingapi": "StartDebugging"
+      },
+      "httpPort": 5002,
+      "sslPort": 5003
+    }
+  }
+}

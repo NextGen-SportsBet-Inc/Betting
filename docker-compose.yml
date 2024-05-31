@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  bettingapi:
+    container_name: sportbetinc-betting-api
+    image: ${DOCKER_REGISTRY-}bettingapi
+    build:
+      context: .
+      dockerfile: BettingAPI/Dockerfile
+    ports:
+      - 5002:5002
+      - 5003:5003
+    depends_on:
+      - betting_db
+    networks:
+     - microservice-network
+    env_file:
+     - .env
+
+  betting_db:
+    user: root
+    container_name: betting_sql_server
+    hostname: betting_db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8003:1433
+    environment:
+      - ACCEPT_EULA=y
+      - MSSQL_SA_PASSWORD=${DB_SA_PASSWORD}
+      - MSQL_PID=Express
+    restart: always
+    networks:
+     - microservice-network
+    volumes:
+     - sql_server_data:/var/opt/mssql
+
+volumes:
+  sql_server_data: 
+
+networks:
+  microservice-network:
+    external: true
