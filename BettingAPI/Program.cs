@@ -32,12 +32,10 @@ namespace BettingAPI
             builder.Services.AddScoped<IBetRepository, BetRepository>();
             IdentityModelEventSource.ShowPII = true;
 
-            // Add services to the container.
+            // Mass transit
             builder.Services.AddMassTransit(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();
-
-
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -54,7 +52,6 @@ namespace BettingAPI
 
             builder.Services.AddScoped<BettingService>();
             builder.Services.AddControllers();
-            builder.Services.AddHttpClient();
 
 
             //keycloak
@@ -115,10 +112,11 @@ namespace BettingAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseRouting();
-            app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseHttpsRedirection();
 
             app.MapControllers();
 

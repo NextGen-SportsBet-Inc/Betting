@@ -6,8 +6,7 @@
       "serviceActions": {
         "bettingapi": "StartDebugging"
       },
-      "httpPort": 5002,
-      "sslPort": 5003
+      "httpPort": 5002
     }
   }
 }

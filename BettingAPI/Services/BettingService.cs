@@ -35,6 +35,18 @@ namespace BettingAPI.Services
             var response = await _removeAmountClient.GetResponse<RemoveAmountResponse>(
                 new RemoveAmountRequest { UserId = userId, AmountToRemove = currencyToRemove });
 
+            string a = "";
+            if (response.Message.Success)
+            {
+                a = "success";
+            }
+            else
+            {
+                a = "not sucess";
+            }
+
+            Console.WriteLine(a);
+
             return response.Message;
         }
 
