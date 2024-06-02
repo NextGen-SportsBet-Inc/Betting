@@ -12,10 +12,10 @@ namespace BettingAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Accounts",
+                name: "Bets",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(type: "int", nullable: false)
+                    BetId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MatchId = table.Column<int>(type: "int", nullable: false),
@@ -24,12 +24,12 @@ namespace BettingAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.AccountId);
+                    table.PrimaryKey("PK_Bets", x => x.BetId);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_UserId",
-                table: "Accounts",
+                name: "IX_Bets_UserId",
+                table: "Bets",
                 column: "UserId",
                 unique: true);
         }
@@ -38,7 +38,7 @@ namespace BettingAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Bets");
         }
     }
 }

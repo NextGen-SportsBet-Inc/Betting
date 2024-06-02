@@ -4,6 +4,8 @@ using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 using SportBetInc.Repositories;
@@ -34,6 +36,8 @@ namespace BettingAPI
             builder.Services.AddMassTransit(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();
+
+
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -116,8 +120,17 @@ namespace BettingAPI
 
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<BettingDbContext>();
+
+                if ((db.Database.GetService<IDatabaseCreator>() is RelationalDatabaseCreator service) && (!service.Exists()))
+                {
+                    db.Database.Migrate();
+                }
+            }
 
             app.Run();
         }

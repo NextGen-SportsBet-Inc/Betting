@@ -3,7 +3,7 @@ using SportBetInc.Models;
 
 public class BettingDbContext(DbContextOptions<BettingDbContext> options) : DbContext(options)
 {
-    public DbSet<Bet> Accounts { get; set; }
+    public DbSet<Bet> Bets { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

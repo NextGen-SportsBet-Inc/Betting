@@ -5,7 +5,7 @@ namespace SportBetInc.Models
     public class Bet
     {
         [Key]
-        public required int AccountId { get; set; }
+        public int BetId { get; set; }
 
         public required string UserId { get; set; }
 

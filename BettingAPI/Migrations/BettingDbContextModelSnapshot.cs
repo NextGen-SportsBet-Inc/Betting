@@ -23,11 +23,11 @@ namespace BettingAPI.Migrations
 
             modelBuilder.Entity("SportBetInc.Models.Bet", b =>
                 {
-                    b.Property<int>("AccountId")
+                    b.Property<int>("BetId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BetId"));
 
                     b.Property<float>("AmountBet")
                         .HasColumnType("real");
@@ -42,12 +42,12 @@ namespace BettingAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("BetId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Bets");
                 });
 #pragma warning restore 612, 618
         }
