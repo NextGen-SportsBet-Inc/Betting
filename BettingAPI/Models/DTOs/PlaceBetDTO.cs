@@ -6,7 +6,7 @@
 
         public required int TeamBetId { get; set; }
 
-        public required float AmountBet { get; set; }
+        public required double AmountBet { get; set; }
     
     }
 }

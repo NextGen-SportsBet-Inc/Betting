@@ -13,11 +13,13 @@ namespace BettingAPI.Models
 
         public required int TeamBetId {  get; set; } // qual a equipa bet
 
-        public required float AmountBet { get; set; } // montante
+        public required double AmountBet { get; set; } // montante
 
-        public float AmountWon { get; set; } = 0; // montante ganho pela bet
+        public double AmountWon { get; set; } = 0; // montante ganho pela bet
 
         public required BetStatus BetStatus { get; set; } // status bet 
+
+        public int? TeamWon { get; set; }  // id da equipa que ganhou
 
         public required DateTime CreatedAt { get; set; }
 

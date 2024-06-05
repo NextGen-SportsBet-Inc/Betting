@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BettingAPI.Migrations
 {
     [DbContext(typeof(BettingDbContext))]
-    [Migration("20240605022222_BettingMigration")]
+    [Migration("20240605041923_BettingMigration")]
     partial class BettingMigration
     {
         /// <inheritdoc />
@@ -32,11 +32,11 @@ namespace BettingAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BetId"));
 
-                    b.Property<float>("AmountBet")
-                        .HasColumnType("real");
+                    b.Property<double>("AmountBet")
+                        .HasColumnType("float");
 
-                    b.Property<float>("AmountWon")
-                        .HasColumnType("real");
+                    b.Property<double>("AmountWon")
+                        .HasColumnType("float");
 
                     b.Property<int>("BetStatus")
                         .HasColumnType("int");
@@ -51,6 +51,9 @@ namespace BettingAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("TeamBetId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamWon")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")

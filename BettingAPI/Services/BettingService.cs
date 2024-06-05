@@ -34,7 +34,7 @@ namespace BettingAPI.Services
             return response.Message;
         }
 
-        public async Task<RemoveAmountResponse> RemoveCurrencyUser(String userId, float currencyToRemove)
+        public async Task<RemoveAmountResponse> RemoveCurrencyUser(String userId, double currencyToRemove)
         {
             var response = await _removeAmountClient.GetResponse<RemoveAmountResponse>(
                 new RemoveAmountRequest { UserId = userId, AmountToRemove = currencyToRemove });
@@ -43,7 +43,7 @@ namespace BettingAPI.Services
             return response.Message;
         }
 
-        public async Task SendAddCurrencyUserAsync(String userId, float currencyToAdd)
+        public async Task SendAddCurrencyUserAsync(String userId, double currencyToAdd)
         {
             var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:add-currency"));
             await endpoint.Send(new AddAmountRequest { UserId = userId, AmountToAdd = currencyToAdd });

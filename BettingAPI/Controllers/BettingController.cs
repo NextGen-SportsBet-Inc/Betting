@@ -47,7 +47,7 @@ namespace BettingAPI.Controllers
                 return Conflict(new { message = "Can't get the user's current currency." });
             }
 
-            float amount = checkAmount.Amount ?? 0;
+            double amount = checkAmount.Amount ?? 0;
 
             if (amount < bet.AmountBet)
             {
@@ -88,16 +88,6 @@ namespace BettingAPI.Controllers
             return Ok(new { bets });
 
         }
-
-        [Authorize]
-        [HttpGet("/testing")]
-        public async Task<IActionResult> TestingEndpoint()
-        {
-            await _betRepository.ChangeStatusAllBetsByMatchId(1, 1, 3);
-
-            return Ok("ok");
-        }
-
     
     }
 

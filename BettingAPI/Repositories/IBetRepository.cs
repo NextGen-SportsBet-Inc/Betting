@@ -9,6 +9,6 @@ namespace BettingAPI.Repositories
 
         Task<List<Bet>> GetBetsByUserId(String userId);
 
-        Task ChangeStatusAllBetsByMatchId(int matchId, int teamId, float odd);
+        Task ChangeStatusAllBetsByMatchId(int matchId, int teamId, double odd);
     }
 }

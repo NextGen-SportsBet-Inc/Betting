@@ -37,12 +37,13 @@ namespace BettingAPI.Repositories
 
         }
 
-        public virtual async Task ChangeStatusAllBetsByMatchId(int matchId, int teamId, float odd)
+        public virtual async Task ChangeStatusAllBetsByMatchId(int matchId, int teamId, double odd)
         {
             var bets = await _bettingContext.Bets.Where(b => b.MatchId == matchId).ToListAsync(); // get all the bets with that match id
 
             foreach (var bet in bets)
             {
+                bet.TeamWon = teamId;
                 bet.ConcludedAt = DateTime.UtcNow;
                 if (bet.TeamBetId == teamId)
                 {
