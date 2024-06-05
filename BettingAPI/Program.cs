@@ -1,4 +1,5 @@
 
+using BettingAPI.Consumer;
 using BettingAPI.Repositories;
 using BettingAPI.Services;
 using Keycloak.AuthServices.Authentication;
@@ -36,6 +37,7 @@ namespace BettingAPI
             builder.Services.AddMassTransit(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();
+                x.AddConsumer<MatchConsumer>();
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -46,6 +48,11 @@ namespace BettingAPI
                     });
 
                     cfg.ConfigureEndpoints(context);
+
+                    cfg.ReceiveEndpoint("match-change", e =>
+                    {
+                        e.ConfigureConsumer<MatchConsumer>(context);
+                    });
                 });
 
             });

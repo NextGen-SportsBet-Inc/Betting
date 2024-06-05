@@ -47,26 +47,14 @@
         public float? AmountToAdd { get; set; }
     }
 
-    public record AddAmountResponse
-    {
-        public bool Success { get; set; }
-
-        public string? ErrorMessage { get; set; }
-
-    }
 
     public record ChangeBetStatusRequest
     {
-        public required string MatchId { get; set; }
+        public required int MatchId { get; set; }
 
-        public required string TeamId { get; set; }
-    }
+        public required int TeamId { get; set; }
 
-    public record ChangeBetStatusResponse
-    {
-        public required string MatchId { get; set; }
-
-        public required string TeamId { get; set; }
+        public required float Odd { get; set; }
     }
 
 }
