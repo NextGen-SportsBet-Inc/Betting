@@ -19,8 +19,12 @@ namespace BettingAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MatchId = table.Column<int>(type: "int", nullable: false),
+                    TeamBetId = table.Column<int>(type: "int", nullable: false),
                     AmountBet = table.Column<float>(type: "real", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    AmountWon = table.Column<float>(type: "real", nullable: false),
+                    BetStatus = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConcludedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

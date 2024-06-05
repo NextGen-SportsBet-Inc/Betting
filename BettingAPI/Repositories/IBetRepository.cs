@@ -1,7 +1,7 @@
 ﻿using BettingAPI.Models.DTOs;
-using SportBetInc.Models;
+using BettingAPI.Models;
 
-namespace SportBetInc.Repositories
+namespace BettingAPI.Repositories
 {
     public interface IBetRepository
     {
@@ -9,5 +9,6 @@ namespace SportBetInc.Repositories
 
         Task<List<Bet>> GetBetsByUserId(String userId);
 
+        Task ChangeStatusAllBetsByMatchId(int matchId, int teamId, float odd);
     }
 }

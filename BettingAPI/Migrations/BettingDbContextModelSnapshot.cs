@@ -21,7 +21,7 @@ namespace BettingAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SportBetInc.Models.Bet", b =>
+            modelBuilder.Entity("BettingAPI.Models.Bet", b =>
                 {
                     b.Property<int>("BetId")
                         .ValueGeneratedOnAdd()
@@ -32,10 +32,22 @@ namespace BettingAPI.Migrations
                     b.Property<float>("AmountBet")
                         .HasColumnType("real");
 
+                    b.Property<float>("AmountWon")
+                        .HasColumnType("real");
+
+                    b.Property<int>("BetStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ConcludedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MatchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamBetId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")

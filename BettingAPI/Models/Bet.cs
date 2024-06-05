@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SportBetInc.Models
+namespace BettingAPI.Models
 {
     public class Bet
     {
@@ -9,11 +9,19 @@ namespace SportBetInc.Models
 
         public required string UserId { get; set; }
 
-        public required int MatchId { get; set; }
+        public required int MatchId { get; set; } // id do jogo
 
-        public required float AmountBet { get; set; }
+        public required int TeamBetId {  get; set; } // qual a equipa bet
+
+        public required float AmountBet { get; set; } // montante
+
+        public float AmountWon { get; set; } = 0; // montante ganho pela bet
+
+        public required BetStatus BetStatus { get; set; } // status bet 
 
         public required DateTime CreatedAt { get; set; }
+
+        public DateTime ConcludedAt { get; set; }
 
     }
 }

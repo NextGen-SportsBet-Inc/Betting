@@ -6,13 +6,17 @@ namespace BettingAPI.Services
     public class BettingService(
         IRequestClient<UserExistsRequest> userClient,
         IRequestClient<CheckAmountRequest> checkAmountClient,
-        IRequestClient<RemoveAmountRequest> removeAmountClient)
+        IRequestClient<RemoveAmountRequest> removeAmountClient,
+        ISendEndpointProvider sendEndpointProvider)
     {
         private readonly IRequestClient<UserExistsRequest> _userClient = userClient;
 
         private readonly IRequestClient<CheckAmountRequest> _checkAmountClient = checkAmountClient;
 
         private readonly IRequestClient<RemoveAmountRequest> _removeAmountClient = removeAmountClient;
+
+        private readonly ISendEndpointProvider _sendEndpointProvider = sendEndpointProvider;
+
 
         public async Task<bool> CheckIfUserExists(String userId)
         {
@@ -35,21 +39,15 @@ namespace BettingAPI.Services
             var response = await _removeAmountClient.GetResponse<RemoveAmountResponse>(
                 new RemoveAmountRequest { UserId = userId, AmountToRemove = currencyToRemove });
 
-            string a = "";
-            if (response.Message.Success)
-            {
-                a = "success";
-            }
-            else
-            {
-                a = "not sucess";
-            }
-
-            Console.WriteLine(a);
 
             return response.Message;
         }
 
+        public async Task SendAddCurrencyUserAsync(String userId, float currencyToAdd)
+        {
+            var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:add-currency"));
+            await endpoint.Send(new AddAmountRequest { UserId = userId, AmountToAdd = currencyToAdd });
+        }
 
     }
 }

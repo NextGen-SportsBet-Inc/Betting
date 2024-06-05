@@ -5,8 +5,8 @@ using MassTransit.Futures.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Messages;
-using SportBetInc.Models;
-using SportBetInc.Repositories;
+using BettingAPI.Models;
+using BettingAPI.Repositories;
 using System.Security.Claims;
 
 namespace BettingAPI.Controllers
@@ -89,6 +89,16 @@ namespace BettingAPI.Controllers
 
         }
 
+        [Authorize]
+        [HttpGet("/testing")]
+        public async Task<IActionResult> TestingEndpoint()
+        {
+            await _betRepository.ChangeStatusAllBetsByMatchId(1, 1, 3);
+
+            return Ok("ok");
+        }
+
+    
     }
 
 }

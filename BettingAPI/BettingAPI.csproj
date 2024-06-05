@@ -12,7 +12,6 @@
   <ItemGroup>
 	<PackageReference Include="DotNetEnv" Version="3.0.0" />
 	<PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.3.0" />
-	<PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.3.0" />
 	<PackageReference Include="Keycloak.AuthServices.Authorization" Version="2.3.0" />
 	<PackageReference Include="Keycloak.AuthServices.Common" Version="2.3.0" />
 	<PackageReference Include="Keycloak.AuthServices.Sdk" Version="2.3.0" />
@@ -30,6 +29,10 @@
 		<PrivateAssets>all</PrivateAssets>
 		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Consumer\" />
   </ItemGroup>
 
 </Project>

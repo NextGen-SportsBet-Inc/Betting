@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SportBetInc.Models;
+using BettingAPI.Models;
 
 public class BettingDbContext(DbContextOptions<BettingDbContext> options) : DbContext(options)
 {

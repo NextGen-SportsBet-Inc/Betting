@@ -1,4 +1,5 @@
 
+using BettingAPI.Repositories;
 using BettingAPI.Services;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
@@ -8,7 +9,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
-using SportBetInc.Repositories;
 
 namespace BettingAPI
 {
