@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  betting_db:
+    container_name: betting_sql_server
+    hostname: betting_db_host
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=y
+      - MSSQL_SA_PASSWORD=${DB_SA_PASSWORD}
+      - MSQL_PID=Express
+    healthcheck:
+      test: [ "CMD-SHELL","/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${DB_SA_PASSWORD} -Q 'SELECT 1'" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: always
+    networks:
+     - betting-network
+    volumes:
+     - betting_data:/var/opt/mssql
+
+  bettingapi:
+    container_name: sportbetinc-betting-api
+    image: ${DOCKER_REGISTRY-}bettingapi
+    build:
+      context: .
+      dockerfile: BettingAPI/Dockerfile
+    ports:
+      - 5002:5002
+    depends_on:
+       betting_db:
+         condition: service_healthy
+    networks:
+     - microservice-network
+     - betting-network
+    env_file:
+     - .env
+
+volumes:
+  betting_data: 
+
+networks:
+  microservice-network:
+    external: true
+  betting-network:
