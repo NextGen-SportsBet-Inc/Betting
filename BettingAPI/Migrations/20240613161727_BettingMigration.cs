@@ -17,7 +17,7 @@ namespace BettingAPI.Migrations
                 {
                     BetId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MatchId = table.Column<int>(type: "int", nullable: false),
                     TeamBetId = table.Column<int>(type: "int", nullable: false),
                     AmountBet = table.Column<double>(type: "float", nullable: false),
@@ -31,12 +31,6 @@ namespace BettingAPI.Migrations
                 {
                     table.PrimaryKey("PK_Bets", x => x.BetId);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bets_UserId",
-                table: "Bets",
-                column: "UserId",
-                unique: true);
         }
 
         /// <inheritdoc />

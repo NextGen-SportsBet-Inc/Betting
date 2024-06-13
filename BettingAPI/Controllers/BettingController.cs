@@ -13,10 +13,11 @@ namespace BettingAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BettingController(BettingService service, IBetRepository betRepository) : ControllerBase
+    public class BettingController(BettingService service, IBetRepository betRepository, ILogger<BettingController> logger) : ControllerBase
     {
         private readonly BettingService _service = service;
         private readonly IBetRepository _betRepository = betRepository;
+        private readonly ILogger _logger = logger;
 
         [Authorize]
         [HttpPost("/placeBet")]
@@ -26,12 +27,14 @@ namespace BettingAPI.Controllers
 
             if (userClaim == null || userClaim.Value == null)
             {
+                _logger.LogWarning("User ID not found in token.");
                 return NotFound(new { message = "Can't find ID in user token." });
             }
 
             bool userExists = await _service.CheckIfUserExists(userClaim.Value); 
 
             if (!userExists) {
+                _logger.LogWarning("User ID not found in token.");
                 return Conflict(new { message = "User is not registered. Please create an account." });
             }
 
@@ -39,11 +42,13 @@ namespace BettingAPI.Controllers
 
             if (checkAmount == null)
             {
+                _logger.LogWarning("Can't verify user's {userId} currency.", userClaim.Value);
                 return Conflict(new { message = "Can't verify user's currency." });
             }
 
             if (checkAmount.Error)
             {
+                _logger.LogWarning("Can't get the user's {userId} current currency.", userClaim.Value);
                 return Conflict(new { message = "Can't get the user's current currency." });
             }
 
@@ -51,6 +56,7 @@ namespace BettingAPI.Controllers
 
             if (amount < bet.AmountBet)
             {
+                _logger.LogWarning("User {userId} has insufficient currency.", userClaim.Value);
                 return Conflict(new { message = "User has no currency for this bet." });
             }
 
@@ -58,11 +64,13 @@ namespace BettingAPI.Controllers
 
             if (removeAmount == null)
             {
+                _logger.LogWarning("There is a problem with the transactions. Couldn't make bet.");
                 return Conflict(new { message = "There was a problem performing the transaction. Try again later." });
             }
 
             if (!removeAmount.Success)
             {
+                _logger.LogWarning("There is a problem with the transactions. Error: {message}", removeAmount.ErrorMessage ?? "Error not found.");
                 return Conflict(new { message = removeAmount.ErrorMessage ?? "There was a problem performing the transaction. Try again later." });
             }
 
@@ -80,6 +88,7 @@ namespace BettingAPI.Controllers
 
             if (userClaim == null || userClaim.Value == null)
             {
+                _logger.LogWarning("User ID not found in token.");
                 return NotFound(new { message = "Can't find ID in user token." });
             }
 

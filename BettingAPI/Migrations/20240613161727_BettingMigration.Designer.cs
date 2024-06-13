@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BettingAPI.Migrations
 {
     [DbContext(typeof(BettingDbContext))]
-    [Migration("20240605041923_BettingMigration")]
+    [Migration("20240613161727_BettingMigration")]
     partial class BettingMigration
     {
         /// <inheritdoc />
@@ -58,12 +58,9 @@ namespace BettingAPI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BetId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Bets");
                 });

@@ -7,11 +7,7 @@ public class BettingDbContext(DbContextOptions<BettingDbContext> options) : DbCo
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Bet>()
-            .HasIndex(a => a.UserId)
-            .IsUnique();
-
-        base.OnModelCreating(modelBuilder);
+        
     }
 
 }

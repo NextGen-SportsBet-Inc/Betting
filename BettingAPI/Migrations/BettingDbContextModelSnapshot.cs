@@ -55,12 +55,9 @@ namespace BettingAPI.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BetId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Bets");
                 });
